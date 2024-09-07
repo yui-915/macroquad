@@ -128,7 +128,11 @@ impl Color {
     pub fn from_hex(hex: u32) -> Color {
         let bytes: [u8; 4] = hex.to_be_bytes();
 
-        Self::from_rgba(bytes[1], bytes[2], bytes[3], 255)
+        if bytes[0] == 0 {
+            Self::from_rgba(bytes[1], bytes[2], bytes[3], 255)
+        } else {
+            Self::from_rgba(bytes[0], bytes[1], bytes[2], bytes[3])
+        }
     }
 
     /// Create a vec4 of red, green, blue, and alpha components.
